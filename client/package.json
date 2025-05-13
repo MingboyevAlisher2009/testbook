@@ -15,10 +15,14 @@
     "@mui/material": "^7.1.0",
     "@mui/styled-engine-sc": "^7.1.0",
     "axios": "^1.9.0",
+    "lucide-react": "^0.510.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.6.0",
-    "styled-components": "^6.1.18"
+    "sonner": "^2.0.3",
+    "styled-components": "^6.1.18",
+    "testbook": "file:..",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

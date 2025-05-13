@@ -1,37 +1,44 @@
 import { model, Schema } from "mongoose";
 
-const book = new Schema({
-  isbn: {
-    type: String,
-    required: true,
+const book = new Schema(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    isbn: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    cover: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    published: {
+      type: Number,
+      required: true,
+    },
+    pages: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: ["new", "reading", "finished"],
+    },
   },
-  title: {
-    type: String,
-    required: true,
-  },
-  cover: {
-    type: String,
-    required: true,
-  },
-  author: {
-    type: String,
-    required: true,
-  },
-  published: {
-    type: Number,
-    required: true,
-  },
-  pages: {
-    type: Number,
-    required: true,
-  },
-  status: {
-    type: Number,
-    required: true,
-    enum: [1, 2, 3],
-  },
-});
+  { timestamps: true }
+);
 
-const BookSchema = model("Books", book);
+const BooksModel = model("Books", book);
 
-export default BookSchema;
+export default BooksModel;
