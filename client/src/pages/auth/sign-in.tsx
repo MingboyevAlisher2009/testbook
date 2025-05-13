@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { BASE_URL } from "../../http/api";
 import { toast } from "sonner";
 import axiosIntense from "../../http/axios-instence";
 
@@ -54,7 +53,7 @@ const SignIn = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await axiosIntense.post(`${BASE_URL}/auth/sign-in`, formData);
+        await axiosIntense.post(`/auth/sign-in`, formData);
         toast.success("Login succefully");
         window.location.pathname = "/";
       } catch (error) {
