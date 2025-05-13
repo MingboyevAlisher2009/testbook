@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { BASE_URL } from "../../http/api";
 import axiosIntense from "../../http/axios-instence";
 
 const SignUp = () => {
