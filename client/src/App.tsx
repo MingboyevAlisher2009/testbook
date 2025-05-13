@@ -6,6 +6,7 @@ import useAuth from "./store/use-auth";
 import { ReactNode, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { Box } from "@mui/material";
+import PageNotFound from "./pages/page-not-found";
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const { userInfo } = useAuth();
@@ -29,7 +30,13 @@ const App = () => {
   if (isLoading) {
     return (
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", bgcolor: "#1b1c24" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          bgcolor: "#1b1c24",
+        }}
       >
         <Loader2 size={80} className="text-white animate-spin" />
       </Box>
@@ -62,6 +69,7 @@ const App = () => {
           </PrivateRoute>
         }
       />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

@@ -8,11 +8,18 @@ import {
   Avatar,
   useMediaQuery,
   useTheme,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Divider,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import { Bell, SearchIcon } from "lucide-react";
+import { Bell, LogOut, SearchIcon } from "lucide-react";
 import logo from "../../../assets/logo.png";
 import useAuth from "../../../store/use-auth";
+import { useState } from "react";
+import { toast } from "sonner";
+import axiosIntense from "../../../http/axios-instence";
 
 type NavbarType = {
   searchQuery: string;
@@ -62,7 +69,26 @@ const Navbar = ({ searchQuery, setSearchQuery }: NavbarType) => {
   const { userInfo } = useAuth();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
+  const handleLogout = async () => {
+    try {
+      await axiosIntense.post("/auth/logout");
+      window.location.pathname = "/auth/sign-in";
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again";
+      toast.error(errorMessage);
+    }
+  };
   return (
     <AppBar
       position="static"
@@ -111,11 +137,35 @@ const Navbar = ({ searchQuery, setSearchQuery }: NavbarType) => {
           <IconButton size="large">
             <Bell />
           </IconButton>
-          <Avatar
-            sx={{ ml: 2, width: 36, height: 36 }}
-            alt="User Profile"
-            src={`https://avatar.iran.liara.run/public/${userInfo?._id}`}
-          />
+          <button
+            style={{ backgroundColor: "transparent", border: "none" }}
+            onClick={handleClick}
+          >
+            <Avatar
+              id="basic-button"
+              sx={{ ml: 2, width: 36, height: 36 }}
+              alt="User Profile"
+              src={`https://avatar.iran.liara.run/public/${userInfo?._id}`}
+            />
+          </button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem disabled>{userInfo?.username}</MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <LogOut fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
