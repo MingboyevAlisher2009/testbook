@@ -68,7 +68,7 @@ const SignUp = () => {
     e.preventDefault();
     if (validate()) {
       try {
-        await axiosIntense.post(`${BASE_URL}/auth/sign-up`, {
+        await axiosIntense.post(`/auth/sign-up`, {
           username: formData.username,
           password: formData.password,
         });
